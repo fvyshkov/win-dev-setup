@@ -3,145 +3,134 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Рабочее окружение для Windows / Windows dev setup</title>
+<title>Рабочее окружение для Windows</title>
 <style>
   :root{
-    --bg:#fbfaf8; --surface:#ffffff; --line:#e5e0d8; --line-soft:#efebe4;
-    --ink:#1c1a17; --ink-2:#57534d; --ink-3:#8a847a;
+    --bg:#fbfaf8; --surface:#ffffff; --line:#e3ded6; --line-soft:#eeeae3;
+    --ink:#1c1a17; --ink-2:#575249; --ink-3:#8b857b;
     --accent:#b5502a; --accent-soft:#fdf1ec;
-    --warn:#8a5a00; --warn-bg:#fdf6e3; --warn-line:#e8d9ae;
+    --warn:#8a5a00; --warn-bg:#fdf7e8; --warn-line:#e9dcb6;
     --code-bg:#26241f; --code-ink:#eeeae2; --code-line:#3a372f;
-    --ok:#2f6b3f; --bar:rgba(251,250,248,.86);
+    --ok:#2f6b3f; --bar:rgba(251,250,248,.88); --band:#f3efe8;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#131211; --surface:#1b1a18; --line:#302e2a; --line-soft:#262421;
-      --ink:#eceae6; --ink-2:#a8a49c; --ink-3:#7d7870;
+      --bg:#131211; --surface:#1c1a18; --line:#302e2a; --line-soft:#252320;
+      --ink:#eceae6; --ink-2:#a9a49b; --ink-3:#7c776f;
       --accent:#e08a5f; --accent-soft:#2a201b;
-      --warn:#d9b264; --warn-bg:#251f13; --warn-line:#453a22;
-      --code-bg:#0e0d0c; --code-ink:#e6e2da; --code-line:#2b2926;
-      --ok:#7dbb8c; --bar:rgba(19,18,17,.86);
+      --warn:#d9b264; --warn-bg:#241e13; --warn-line:#443921;
+      --code-bg:#0d0c0b; --code-ink:#e6e2da; --code-line:#2b2926;
+      --ok:#7dbb8c; --bar:rgba(19,18,17,.88); --band:#1b1917;
     }
   }
   :root[data-theme="dark"]{
-    --bg:#131211; --surface:#1b1a18; --line:#302e2a; --line-soft:#262421;
-    --ink:#eceae6; --ink-2:#a8a49c; --ink-3:#7d7870;
+    --bg:#131211; --surface:#1c1a18; --line:#302e2a; --line-soft:#252320;
+    --ink:#eceae6; --ink-2:#a9a49b; --ink-3:#7c776f;
     --accent:#e08a5f; --accent-soft:#2a201b;
-    --warn:#d9b264; --warn-bg:#251f13; --warn-line:#453a22;
-    --code-bg:#0e0d0c; --code-ink:#e6e2da; --code-line:#2b2926;
-    --ok:#7dbb8c; --bar:rgba(19,18,17,.86);
+    --warn:#d9b264; --warn-bg:#241e13; --warn-line:#443921;
+    --code-bg:#0d0c0b; --code-ink:#e6e2da; --code-line:#2b2926;
+    --ok:#7dbb8c; --bar:rgba(19,18,17,.88); --band:#1b1917;
   }
 
   *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%; scroll-behavior:smooth}
+  html{-webkit-text-size-adjust:100%}
   body{
     margin:0; background:var(--bg); color:var(--ink);
-    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font:15.5px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     overflow-x:hidden;
   }
-  .wrap{max-width:760px; margin:0 auto; padding:0 20px 96px}
+  .wrap{max-width:720px; margin:0 auto; padding:0 20px 72px}
 
-  /* ---------- toolbar ---------- */
-  .bar{
-    position:sticky; top:0; z-index:20;
-    background:var(--bar); backdrop-filter:saturate(1.6) blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .bar-in{
-    max-width:760px; margin:0 auto; padding:11px 20px;
-    display:flex; align-items:center; gap:16px; justify-content:space-between;
-  }
-  .brand{font-size:14px; font-weight:600; color:var(--ink-2); letter-spacing:-.01em}
-  .seg{display:flex; border:1px solid var(--line); border-radius:8px; overflow:hidden; background:var(--surface)}
-  .seg button{
-    appearance:none; border:0; background:none; cursor:pointer;
-    font:inherit; font-size:13px; font-weight:600; color:var(--ink-3);
-    padding:6px 13px; letter-spacing:.04em;
-  }
+  /* toolbar */
+  .bar{position:sticky; top:0; z-index:20; background:var(--bar); backdrop-filter:saturate(1.6) blur(10px); border-bottom:1px solid var(--line)}
+  .bar-in{max-width:720px; margin:0 auto; padding:9px 20px; display:flex; align-items:center; gap:14px; justify-content:space-between}
+  .brand{font-size:13.5px; font-weight:600; color:var(--ink-2)}
+  .seg{display:flex; border:1px solid var(--line); border-radius:7px; overflow:hidden; background:var(--surface)}
+  .seg button{appearance:none; border:0; background:none; cursor:pointer; font:inherit; font-size:12.5px; font-weight:600; color:var(--ink-3); padding:5px 12px}
   .seg button + button{border-left:1px solid var(--line)}
   .seg button[aria-pressed="true"]{background:var(--accent); color:#fff}
 
-  /* ---------- content ---------- */
-  header{padding:56px 0 38px; border-bottom:1px solid var(--line)}
-  h1{font-size:clamp(27px,5vw,39px); line-height:1.15; margin:0 0 14px; letter-spacing:-.022em; font-weight:650}
-  .lede{font-size:17px; color:var(--ink-2); margin:0; max-width:56ch}
+  /* header */
+  header{padding:38px 0 22px}
+  h1{font-size:clamp(25px,4.4vw,33px); line-height:1.15; margin:0 0 10px; letter-spacing:-.022em; font-weight:650}
+  .lede{font-size:16px; color:var(--ink-2); margin:0; max-width:54ch}
 
-  h2{font-size:13px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:600; margin:0 0 20px}
-  section{padding:38px 0; border-bottom:1px solid var(--line-soft)}
-  section:last-of-type{border-bottom:0}
-
-  .step{display:flex; gap:18px; align-items:flex-start; margin:0 0 10px}
-  .num{
-    flex:none; width:27px; height:27px; border-radius:50%;
-    background:var(--accent); color:#fff; font-size:13px; font-weight:600;
-    display:flex; align-items:center; justify-content:center; margin-top:2px;
+  /* part divider */
+  .part{
+    margin:34px -20px 0; padding:13px 20px 12px;
+    background:var(--band); border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    display:flex; align-items:baseline; gap:12px;
   }
-  .step h3{margin:0; font-size:20px; font-weight:600; letter-spacing:-.012em; line-height:1.5}
-  .step-body{margin:0 0 0 45px}
-  .step-body p{margin:10px 0}
-  .step-body ul,.step-body ol{margin:10px 0; padding-left:20px}
-  .step-body li{margin:7px 0}
+  .part .no{font-size:11.5px; font-weight:700; letter-spacing:.11em; color:var(--accent)}
+  .part .ttl{font-size:15px; font-weight:650; letter-spacing:-.01em}
 
-  code{
-    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-    font-size:.88em; background:var(--accent-soft); color:var(--accent);
-    padding:2px 6px; border-radius:4px; white-space:nowrap;
+  /* steps */
+  .step{padding:22px 0 4px; border-bottom:1px solid var(--line-soft)}
+  .step:last-child{border-bottom:0}
+  .step > h3{
+    margin:0 0 8px; font-size:17.5px; font-weight:650; letter-spacing:-.012em;
+    display:flex; align-items:baseline; gap:11px;
   }
-  kbd{
-    font-family:inherit; font-size:.82em; font-weight:600;
-    background:var(--surface); border:1px solid var(--line);
-    border-bottom-width:2px; border-radius:5px; padding:2px 7px; white-space:nowrap;
+  .step > h3 .n{
+    flex:none; width:23px; height:23px; border-radius:50%; background:var(--accent); color:#fff;
+    font-size:12px; font-weight:600; display:inline-flex; align-items:center; justify-content:center;
+    position:relative; top:3px;
   }
+  .step .b{margin-left:34px}
+  .step p{margin:8px 0}
+  .step ul,.step ol{margin:8px 0; padding-left:19px}
+  .step li{margin:5px 0}
 
-  .code{position:relative; margin:16px 0}
+  /* plain sections */
+  .plain{padding:22px 0 4px; border-bottom:1px solid var(--line-soft)}
+  .plain:last-child{border-bottom:0}
+  .plain > h3{margin:0 0 10px; font-size:17.5px; font-weight:650; letter-spacing:-.012em}
+  .plain p{margin:8px 0}
+
+  code{font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace; font-size:.87em; background:var(--accent-soft); color:var(--accent); padding:1px 5px; border-radius:4px; white-space:nowrap}
+  kbd{font-family:inherit; font-size:.8em; font-weight:600; background:var(--surface); border:1px solid var(--line); border-bottom-width:2px; border-radius:5px; padding:1px 6px; white-space:nowrap}
+
+  .code{position:relative; margin:12px 0}
   .code pre{
-    margin:0; background:var(--code-bg); color:var(--code-ink);
-    border:1px solid var(--code-line); border-radius:9px;
-    padding:16px 58px 16px 18px; overflow-x:auto;
-    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
-    font-size:13.5px; line-height:1.7;
+    margin:0; background:var(--code-bg); color:var(--code-ink); border:1px solid var(--code-line);
+    border-radius:8px; padding:13px 54px 13px 15px; overflow-x:auto;
+    font-family:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace; font-size:13px; line-height:1.65;
   }
   .code pre code{background:none; color:inherit; padding:0; font-size:inherit; white-space:pre}
-  .copy{
-    position:absolute; top:9px; right:9px;
-    background:rgba(255,255,255,.07); color:#c9c4bb; border:1px solid var(--code-line);
-    border-radius:6px; padding:5px 9px; font-size:11px; cursor:pointer; font-family:inherit;
-  }
+  .copy{position:absolute; top:7px; right:7px; background:rgba(255,255,255,.07); color:#c9c4bb; border:1px solid var(--code-line); border-radius:6px; padding:4px 8px; font-size:10.5px; cursor:pointer; font-family:inherit}
   .copy:hover{background:rgba(255,255,255,.15); color:#fff}
   .copy.done{color:var(--ok); border-color:var(--ok)}
 
-  .dl{
-    display:inline-flex; align-items:center; gap:10px;
-    background:var(--accent); color:#fff; text-decoration:none;
-    padding:14px 22px; border-radius:9px; font-weight:600; font-size:16px; margin:6px 0 4px;
-  }
+  .dl{display:inline-flex; align-items:baseline; gap:9px; background:var(--accent); color:#fff; text-decoration:none; padding:13px 22px; border-radius:9px; font-weight:600; font-size:16px; margin:4px 0 2px}
   .dl:hover{filter:brightness(1.08)}
-  .dl .sub{font-weight:400; opacity:.82; font-size:13px}
+  .dl .sub{font-weight:400; opacity:.8; font-size:12.5px}
+  .under{font-size:13.5px; color:var(--ink-3); margin:8px 0 0}
 
-  .note{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:9px; padding:14px 18px; margin:16px 0}
+  .note{background:var(--warn-bg); border:1px solid var(--warn-line); border-radius:8px; padding:11px 15px; margin:12px 0; font-size:14.5px}
   .note b{color:var(--warn)}
-  .note p{margin:6px 0}
+  .note p{margin:5px 0}
   .note p:first-child{margin-top:0}
   .note p:last-child{margin-bottom:0}
 
-  .tbl{width:100%; overflow-x:auto; margin:16px 0}
-  table{border-collapse:collapse; width:100%; font-size:15px}
-  th,td{text-align:left; padding:10px 14px 10px 0; border-bottom:1px solid var(--line-soft); vertical-align:top}
-  th{color:var(--ink-3); font-weight:600; font-size:12px; letter-spacing:.07em; text-transform:uppercase}
-  td:first-child{white-space:nowrap; padding-right:24px}
+  .tbl{width:100%; overflow-x:auto; margin:12px 0}
+  table{border-collapse:collapse; width:100%; font-size:14.5px}
+  td{text-align:left; padding:7px 12px 7px 0; border-bottom:1px solid var(--line-soft); vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td:first-child{white-space:nowrap; padding-right:20px}
 
-  details{border-top:1px solid var(--line-soft); padding:14px 0}
-  details summary{cursor:pointer; font-weight:550; list-style:none}
+  details{border-top:1px solid var(--line-soft); padding:10px 0}
+  details:first-of-type{border-top:0}
+  details summary{cursor:pointer; font-weight:550; list-style:none; font-size:15px}
   details summary::-webkit-details-marker{display:none}
-  details summary::before{content:"+"; color:var(--accent); font-weight:700; margin-right:10px}
+  details summary::before{content:"+"; color:var(--accent); font-weight:700; margin-right:9px}
   details[open] summary::before{content:"\2013"}
-  details .body{padding:8px 0 4px 24px; color:var(--ink-2)}
-  details .body p{margin:8px 0}
+  details .body{padding:6px 0 2px 22px; color:var(--ink-2); font-size:14.5px}
+  details .body p{margin:6px 0}
 
-  figure{margin:20px 0}
+  figure{margin:14px 0}
   figure svg{width:100%; height:auto; display:block}
 
-  footer{padding:38px 0 0; color:var(--ink-3); font-size:14px; border-top:1px solid var(--line)}
+  footer{padding:26px 0 0; color:var(--ink-3); font-size:13.5px; border-top:1px solid var(--line); margin-top:30px}
   footer a{color:var(--ink-2)}
 
   [data-lang]{display:none}
@@ -162,60 +151,54 @@
 
 <div class="wrap">
 
-<!-- ==================================================================== RU -->
+<!-- =============================================================== RU -->
 <div data-lang="ru" class="on">
 
 <header>
   <h1>Рабочее окружение для Windows</h1>
-  <p class="lede">Один файл ставит редактор, Python, Git и Claude&nbsp;Code, настраивает горячие клавиши — и можно писать код. Семь шагов, минут пятнадцать.</p>
+  <p class="lede">Один файл ставит редактор, Python, Git и Claude&nbsp;Code и настраивает горячие клавиши. Дальше можно писать код.</p>
 </header>
 
-<section>
-  <h2>Что нужно заранее</h2>
-  <ul>
-    <li>Windows 10 (сборка 1809 и новее) или Windows 11</li>
-    <li>Права администратора на этом компьютере</li>
-    <li><b>Оплаченная подписка Anthropic</b> — Claude Pro или Max. Без неё Claude Code не запустится.</li>
-  </ul>
-</section>
+<div class="plain">
+  <h3>Что нужно заранее</h3>
+  <div class="tbl"><table>
+    <tr><td>Система</td><td>Windows 10 (сборка 1809+) или Windows 11</td></tr>
+    <tr><td>Права</td><td>Администратор на этом компьютере</td></tr>
+    <tr><td>Подписка</td><td><b>Оплаченная Claude Pro или Max.</b> Без неё Claude Code не запустится</td></tr>
+  </table></div>
+</div>
 
-<section>
-  <div class="step"><div class="num">1</div><h3>Скачать два файла</h3></div>
-  <div class="step-body">
-    <p>Оба — в одну и ту же папку, например в «Загрузки». Они работают только вместе.</p>
-    <a class="dl" href="setup-dev-environment.bat" download>Скачать установщик <span class="sub">.bat</span></a>
-    <p><a href="setup-dev-environment.ps1" download>И второй файл: setup-dev-environment.ps1</a></p>
-    <p>Браузер может сказать, что файл «может навредить компьютеру». Так он реагирует на любой <code>.bat</code>, независимо от содержимого — выбери «Сохранить» или «Всё равно скачать».</p>
-    <div class="note">
-      <p><b>Не хочешь качать файлы?</b> Открой <b>PowerShell</b> (<kbd>Win</kbd> → набери <code>powershell</code> → Enter) и вставь одну строку — она скачает и запустит всё сама:</p>
-      <div class="code">
-        <pre><code id="one-ru">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
-        <button class="copy" data-target="one-ru">копировать</button>
-      </div>
-      <p>Тогда шаг 2 можно пропустить.</p>
-    </div>
-  </div>
-</section>
+<div class="part"><span class="no">ЧАСТЬ 1</span><span class="ttl">Установка</span></div>
 
-<section>
-  <div class="step"><div class="num">2</div><h3>Запустить установщик</h3></div>
-  <div class="step-body">
-    <p>Двойной клик по <code>setup-dev-environment.bat</code>. Откроется чёрное окно и само расскажет, что делает на каждом шаге.</p>
-    <p>Windows пару раз попросит подтверждение:</p>
+<div class="step">
+  <h3><span class="n">1</span>Скачать и запустить</h3>
+  <div class="b">
+    <a class="dl" href="dev-setup.bat" download>Скачать установщик <span class="sub">.bat</span></a>
+    <p class="under">Один файл. Скачался — двойной клик, дальше всё само.</p>
+    <p>Windows дважды спросит разрешение:</p>
     <ul>
-      <li><b>Синее окно SmartScreen</b> — нажми «Подробнее», затем «Выполнить в любом случае».</li>
-      <li><b>Окно «Разрешить приложению вносить изменения?»</b> — «Да». Появится несколько раз, по разу на каждую программу.</li>
+      <li><b>Синее окно SmartScreen</b> — «Подробнее» → «Выполнить в любом случае». Оно появляется на любой скачанный <code>.bat</code>.</li>
+      <li><b>«Разрешить приложению вносить изменения?»</b> — «Да», по разу на каждую программу.</li>
     </ul>
-    <p>Дальше ничего нажимать не нужно. Идёт 5–15 минут: качаются установщики. Долгая пауза на строке про дополнения к редактору — это нормально, там около 60&nbsp;МБ.</p>
-    <p>В конце окно покажет список установленного с номерами версий.</p>
+    <p>Идёт 5–15 минут, окно рассказывает, что делает. Долгая пауза на строке про дополнения к редактору — это загрузка 60&nbsp;МБ, не зависание.</p>
+    <details>
+      <summary>Вариант для PowerShell, одной строкой</summary>
+      <div class="body">
+        <p><kbd>Win</kbd> → набери <code>powershell</code> → Enter, вставь:</p>
+        <div class="code">
+          <pre><code id="one-ru">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\s.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\s.ps1"</code></pre>
+          <button class="copy" data-target="one-ru">копировать</button>
+        </div>
+      </div>
+    </details>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">3</div><h3>Открыть новый терминал</h3></div>
-  <div class="step-body">
-    <p>Шаг обязательный, его легко пропустить. Установка прописала новые команды в систему, но окна, открытые <i>до</i> этого, о них не знают.</p>
-    <p>Закрой окно установщика. Открой новое: <kbd>Win</kbd> → набери <code>terminal</code> → Enter. Проверь, что всё на месте — вставь и нажми Enter:</p>
+<div class="step">
+  <h3><span class="n">2</span>Открыть новый терминал</h3>
+  <div class="b">
+    <p>Шаг обязательный. Установщик прописал новые команды, но окна, открытые <i>до</i> этого, о них не знают.</p>
+    <p>Закрой окно установщика. <kbd>Win</kbd> → набери <code>terminal</code> → Enter. Вставь и нажми Enter:</p>
     <div class="code">
       <pre><code id="chk-ru">code --version
 python --version
@@ -223,236 +206,200 @@ git --version
 claude --version</code></pre>
       <button class="copy" data-target="chk-ru">копировать</button>
     </div>
-    <p>Каждая строка должна ответить номером версии. Если пишет «не является внутренней или внешней командой» — загляни в раздел «Если что-то пошло не так».</p>
+    <p>Каждая строка должна ответить номером версии.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">4</div><h3>Создать папку проекта и открыть её</h3></div>
-  <div class="step-body">
-    <p>Проект — это просто папка с файлами. Создай её где удобно, например <code>C:\work\test</code>.</p>
-    <p>Открыть её в редакторе можно двумя способами:</p>
-    <ul>
-      <li><b>Мышкой:</b> <kbd>Win</kbd> → <code>Visual Studio Code</code> → Enter. В редакторе: меню <b>File</b> → <b>Open Folder</b> → выбери папку.</li>
-      <li><b>Из терминала:</b> перейди в папку и открой её. Точка означает «текущая папка»:</li>
-    </ul>
+<div class="part"><span class="no">ЧАСТЬ 2</span><span class="ttl">Начать работать</span></div>
+
+<div class="step">
+  <h3><span class="n">3</span>Открыть проект</h3>
+  <div class="b">
+    <p>Проект — это просто папка с файлами. Создай её где удобно, например <code>C:\work\test</code>, и открой:</p>
     <div class="code">
       <pre><code id="open-ru">cd C:\work\test
 code .</code></pre>
       <button class="copy" data-target="open-ru">копировать</button>
     </div>
+    <p>Точка означает «текущая папка». Мышкой то же самое: <kbd>Win</kbd> → <code>Visual Studio Code</code> → меню <b>File</b> → <b>Open Folder</b>.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">5</div><h3>Открыть терминал внутри редактора</h3></div>
-  <div class="step-body">
-    <p>Нажми <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>. Терминал откроется вкладкой рядом с файлами и сразу в папке проекта — никуда переходить не нужно.</p>
-    <p>Штатный <kbd>Ctrl</kbd>+<kbd>`</kbd> тоже работает: он открывает терминал панелью снизу. Дело вкуса.</p>
+<div class="step">
+  <h3><span class="n">4</span>Терминал внутри редактора</h3>
+  <div class="b">
+    <p><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> — терминал откроется вкладкой рядом с файлами и сразу в папке проекта.</p>
+    <p>Штатный <kbd>Ctrl</kbd>+<kbd>`</kbd> тоже работает: терминал панелью снизу.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">6</div><h3>Первый запуск и вход в аккаунт</h3></div>
-  <div class="step-body">
+<div class="step">
+  <h3><span class="n">5</span>Первый запуск и вход</h3>
+  <div class="b">
     <p>В терминале набери две буквы и нажми Enter:</p>
-    <div class="code">
-      <pre><code id="cc-ru">cc</code></pre>
-      <button class="copy" data-target="cc-ru">копировать</button>
-    </div>
-    <p>При самом первом запуске Claude Code проведёт через короткую настройку:</p>
+    <div class="code"><pre><code id="cc-ru">cc</code></pre><button class="copy" data-target="cc-ru">копировать</button></div>
     <ol>
-      <li>Спросит оформление — светлое или тёмное. Выбери стрелками <kbd>↑</kbd> <kbd>↓</kbd> и нажми <kbd>Enter</kbd>.</li>
-      <li>Предложит способ входа. Выбери вариант с <b>подпиской Claude</b> (не вариант с API-ключом).</li>
-      <li>Откроется браузер. Войди в аккаунт Anthropic — тот самый, на котором оплачена подписка.</li>
-      <li>Браузер спросит разрешение — нажми кнопку подтверждения.</li>
-      <li>Вернись в окно терминала. Вход подхватится сам, дальше спрашивать не будет.</li>
+      <li>Спросит оформление, светлое или тёмное — выбери стрелками и нажми <kbd>Enter</kbd>.</li>
+      <li>Предложит способ входа — выбери вариант с <b>подпиской Claude</b>, не с API-ключом.</li>
+      <li>Откроется браузер. Войди в аккаунт Anthropic, на котором оплачена подписка.</li>
+      <li>Подтверди доступ и вернись в терминал — дальше спрашивать не будет.</li>
     </ol>
     <figure>
-      <svg viewBox="0 0 700 128" role="img" aria-label="Схема входа: терминал, браузер, обратно в терминал">
-        <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-          <path d="M0,0 L7,3 L0,6 z" fill="currentColor"/></marker></defs>
-        <g fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45">
-          <rect x="6" y="26" width="190" height="76" rx="9"/>
-          <rect x="255" y="26" width="190" height="76" rx="9"/>
-          <rect x="504" y="26" width="190" height="76" rx="9"/>
-          <line x1="200" y1="64" x2="246" y2="64" marker-end="url(#ar)"/>
-          <line x1="449" y1="64" x2="495" y2="64" marker-end="url(#ar)"/>
+      <svg viewBox="0 0 700 104" role="img" aria-label="Терминал, браузер, снова терминал">
+        <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="currentColor"/></marker></defs>
+        <g fill="none" stroke="currentColor" stroke-width="1.4" opacity=".4">
+          <rect x="4" y="16" width="192" height="70" rx="8"/><rect x="254" y="16" width="192" height="70" rx="8"/><rect x="504" y="16" width="192" height="70" rx="8"/>
+          <line x1="200" y1="51" x2="246" y2="51" marker-end="url(#ar)"/><line x1="450" y1="51" x2="496" y2="51" marker-end="url(#ar)"/>
         </g>
         <g font-family="-apple-system,Segoe UI,sans-serif" fill="currentColor" text-anchor="middle">
-          <text x="101" y="58" font-size="14" font-weight="600">Терминал</text>
-          <text x="101" y="80" font-size="12.5" opacity=".65">набираешь cc</text>
-          <text x="350" y="58" font-size="14" font-weight="600">Браузер</text>
-          <text x="350" y="80" font-size="12.5" opacity=".65">вход и подтверждение</text>
-          <text x="599" y="58" font-size="14" font-weight="600">Терминал</text>
-          <text x="599" y="80" font-size="12.5" opacity=".65">готово, можно работать</text>
+          <text x="100" y="46" font-size="13.5" font-weight="600">Терминал</text><text x="100" y="66" font-size="12" opacity=".62">набираешь cc</text>
+          <text x="350" y="46" font-size="13.5" font-weight="600">Браузер</text><text x="350" y="66" font-size="12" opacity=".62">вход и подтверждение</text>
+          <text x="600" y="46" font-size="13.5" font-weight="600">Терминал</text><text x="600" y="66" font-size="12" opacity=".62">готово</text>
         </g>
       </svg>
     </figure>
-    <p>Если браузер не открылся сам — в терминале будет ссылка, скопируй её и открой вручную.</p>
+    <p>Браузер не открылся сам — в терминале будет ссылка, открой её вручную.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">7</div><h3>Работать</h3></div>
-  <div class="step-body">
-    <p>Дальше просто пиши, что нужно сделать, обычными словами:</p>
+<div class="step">
+  <h3><span class="n">6</span>Работать</h3>
+  <div class="b">
+    <p>Дальше просто пиши, что нужно, обычными словами:</p>
     <div class="code">
       <pre><code id="ex-ru">&gt; сделай на python скрипт, который скачивает картинку по ссылке
 &gt; добавь обработку ошибок и напиши тесты
 &gt; запусти тесты и почини то, что упало</code></pre>
       <button class="copy" data-target="ex-ru">копировать</button>
     </div>
-    <p>Выйти — <kbd>Ctrl</kbd>+<kbd>C</kbd> дважды или команда <code>/exit</code>.</p>
+    <p>Выйти — <code>/exit</code> или <kbd>Ctrl</kbd>+<kbd>C</kbd> дважды.</p>
     <div class="note">
-      <p><b>Важно про команду cc.</b> Это Claude Code с флагом <code>--dangerously-skip-permissions</code>: он меняет файлы и запускает команды, <b>не спрашивая разрешения</b>. Так быстрее, но в текущей папке он может сломать что угодно.</p>
-      <p>В чужих и важных папках запускай обычную команду <code>claude</code> — она делает то же самое, но спрашивает подтверждение на каждое действие.</p>
+      <p><b>Про команду cc.</b> Это Claude Code с флагом <code>--dangerously-skip-permissions</code>: он меняет файлы и запускает команды, не спрашивая. Быстро, но в текущей папке может сломать что угодно.</p>
+      <p>В важных папках запускай <code>claude</code> — то же самое, но с подтверждением каждого действия.</p>
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <h2>Скриншоты в буфер обмена</h2>
-  <p>Ставить ничего не нужно, всё уже есть в Windows. Скриншот из буфера вставляется прямо в окно Claude Code — удобно показать ему ошибку или макет вместо того, чтобы описывать словами.</p>
+<div class="part"><span class="no">ЧАСТЬ 3</span><span class="ttl">Справка</span></div>
+
+<div class="plain">
+  <h3>Скриншоты в буфер</h3>
+  <p>Ставить ничего не нужно, всё уже в Windows. Скриншот вставляется прямо в окно Claude Code — быстрее, чем описывать ошибку словами.</p>
   <div class="tbl"><table>
-    <tr><th>Клавиши</th><th>Что попадает в буфер</th></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td><b>Выделенный кусок экрана.</b> Экран притухнет, выдели прямоугольник мышкой — снимок уже в буфере</td></tr>
-    <tr><td><kbd>PrtScn</kbd></td><td><b>Весь экран целиком</b> (см. оговорку ниже)</td></tr>
+    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td><b>Кусок экрана.</b> Выдели прямоугольник мышкой — снимок в буфере</td></tr>
+    <tr><td><kbd>PrtScn</kbd></td><td>Весь экран целиком (см. оговорку)</td></tr>
     <tr><td><kbd>Alt</kbd>+<kbd>PrtScn</kbd></td><td>Только активное окно</td></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>PrtScn</kbd></td><td>Весь экран, но сохраняется файлом в «Изображения\Снимки экрана»</td></tr>
+    <tr><td><kbd>Alt</kbd>+<kbd>V</kbd></td><td>Вставить снимок в Claude Code</td></tr>
   </table></div>
   <div class="note">
-    <p><b>Если <kbd>PrtScn</kbd> открывает «Ножницы» вместо копирования всего экрана</b> — в Windows 11 так настроено по умолчанию. Выключается за три клика:</p>
-    <p>Параметры → Специальные возможности → Клавиатура → выключить «Используйте кнопку PRINT SCREEN, чтобы открыть средство создания фрагмента экрана».</p>
-    <p>На ноутбуках клавиша <kbd>PrtScn</kbd> часто срабатывает только вместе с <kbd>Fn</kbd>.</p>
+    <p><b>Если <kbd>PrtScn</kbd> открывает «Ножницы»</b> вместо копирования всего экрана — в Windows 11 так по умолчанию. Параметры → Специальные возможности → Клавиатура → выключить «Используйте кнопку PRINT SCREEN, чтобы открыть создание фрагмента экрана».</p>
+    <p>На ноутбуках <kbd>PrtScn</kbd> часто работает только с <kbd>Fn</kbd>.</p>
   </div>
-  <p>Вставить скриншот в Claude Code: <kbd>Alt</kbd>+<kbd>V</kbd>. Обычный <kbd>Ctrl</kbd>+<kbd>V</kbd> в терминале Windows для картинок обычно не срабатывает — он занят самим терминалом.</p>
-</section>
+</div>
 
-<section>
-  <h2>Что установилось</h2>
+<div class="plain">
+  <h3>Что установилось</h3>
   <div class="tbl"><table>
-    <tr><th>Программа</th><th>Зачем нужна</th></tr>
     <tr><td><b>VS Code</b></td><td>Редактор, в котором пишут код</td></tr>
-    <tr><td><b>Git</b></td><td>История правок: всегда можно откатиться назад</td></tr>
+    <tr><td><b>Git</b></td><td>История правок, можно откатиться назад</td></tr>
     <tr><td><b>Python 3.12</b></td><td>Язык программирования</td></tr>
     <tr><td><b>Node.js</b></td><td>Нужен большинству веб-инструментов</td></tr>
     <tr><td><b>Claude Code</b></td><td>ИИ пишет код прямо в терминале</td></tr>
   </table></div>
-  <p style="color:var(--ink-2);font-size:15px">Плюс дополнения к редактору: Python, Pylance, Claude&nbsp;Code.</p>
-</section>
+  <p class="under">Плюс дополнения к редактору: Python, Pylance, Claude&nbsp;Code.</p>
+</div>
 
-<section>
-  <h2>Шпаргалка</h2>
+<div class="plain">
+  <h3>Шпаргалка</h3>
   <div class="tbl"><table>
-    <tr><th>Команда</th><th>Что делает</th></tr>
     <tr><td><code>cc</code></td><td>Claude Code без подтверждений</td></tr>
     <tr><td><code>claude</code></td><td>Claude Code, спрашивает разрешение</td></tr>
     <tr><td><code>code .</code></td><td>Открыть текущую папку в редакторе</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd></td><td>Терминал вкладкой в редакторе</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>`</kbd></td><td>Терминал панелью снизу</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>P</kbd></td><td>Быстрый переход к файлу</td></tr>
-    <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Сохранить</td></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Снимок куска экрана в буфер</td></tr>
-    <tr><td><kbd>Alt</kbd>+<kbd>V</kbd></td><td>Вставить картинку в Claude Code</td></tr>
   </table></div>
-</section>
+</div>
 
-<section>
-  <h2>Если что-то пошло не так</h2>
+<div class="plain">
+  <h3>Если что-то пошло не так</h3>
 
   <details><summary>Команда <code>cc</code> не найдена</summary><div class="body">
-    <p>Почти всегда причина одна: открыт старый терминал. Закрой все окна терминала и открой заново. Не помогло — перезагрузи компьютер, тогда система точно подхватит новые команды.</p></div></details>
+    <p>Почти всегда открыт старый терминал. Закрой все окна терминала и открой заново. Не помогло — перезагрузи компьютер.</p></div></details>
 
-  <details><summary>В самом начале написало <code>winget not found</code></summary><div class="body">
-    <p>Отсутствует встроенный установщик программ от Microsoft — бывает на старых сборках Windows 10. Поставь бесплатное приложение <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> из Microsoft Store и запусти файл заново.</p></div></details>
+  <details><summary>Написало <code>winget not found</code></summary><div class="body">
+    <p>Нет встроенного установщика Microsoft, бывает на старых сборках Windows 10. Поставь бесплатный <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> из Microsoft Store и запусти файл заново.</p></div></details>
 
-  <details><summary>SmartScreen не даёт запустить файл</summary><div class="body">
-    <p>«Подробнее» → «Выполнить в любом случае». Это окно Windows показывает на любой скачанный из интернета <code>.bat</code>, что бы в нём ни было.</p></div></details>
+  <details><summary>SmartScreen не даёт запустить</summary><div class="body">
+    <p>«Подробнее» → «Выполнить в любом случае». Так Windows реагирует на любой скачанный <code>.bat</code>.</p></div></details>
 
-  <details><summary>Батник открылся в Блокноте вместо запуска</summary><div class="body">
-    <p>Сбита привязка расширения <code>.bat</code>. Правый клик по файлу → «Открыть с помощью» → «Выбрать другое приложение» → <b>Windows Command Processor</b>.</p></div></details>
+  <details><summary>Файл открылся в Блокноте</summary><div class="body">
+    <p>Сбита привязка <code>.bat</code>. Правый клик → «Открыть с помощью» → «Выбрать другое приложение» → <b>Windows Command Processor</b>.</p></div></details>
 
-  <details><summary>Ругается, что не найден setup-dev-environment.ps1</summary><div class="body">
-    <p>Скачался только один файл из двух, либо они лежат в разных папках. Оба файла должны быть в одной папке.</p></div></details>
+  <details><summary><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> не работает</summary><div class="body">
+    <p>VS Code читает горячие клавиши при запуске. Закрой его полностью и открой заново.</p></div></details>
 
-  <details><summary><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> не открывает терминал</summary><div class="body">
-    <p>VS Code читает горячие клавиши при запуске. Если он был открыт во время установки — закрой его полностью и открой заново.</p></div></details>
-
-  <details><summary>Установка замерла на строке про дополнения</summary><div class="body">
-    <p>Она не замерла, а качает: самое большое дополнение около 50&nbsp;МБ. Обычно 1–3 минуты. Если стоит дольше пяти — нажми <kbd>Ctrl</kbd>+<kbd>C</kbd>, всё остальное уже установлено, а дополнения можно доставить внутри VS Code через панель Extensions.</p></div></details>
-
-  <details><summary>Claude Code не пускает или просит оплату</summary><div class="body">
-    <p>Нужен активный платный план Anthropic — Claude Pro или Max. На бесплатном аккаунте Claude Code не работает.</p></div></details>
+  <details><summary>Claude Code просит оплату</summary><div class="body">
+    <p>Нужен активный платный план — Claude Pro или Max. На бесплатном аккаунте Claude Code не работает.</p></div></details>
 
   <details><summary>Хочу, чтобы <code>cc</code> спрашивал разрешение</summary><div class="body">
-    <p>Открой папку с файлами, набери в адресной строке проводника <code>cmd</code> и нажми Enter, затем выполни:</p>
-    <p><code>setup-dev-environment.bat -Safe</code></p>
-    <p>После этого <code>cc</code> станет обычным <code>claude</code>, со спросом на каждое действие.</p></div></details>
-</section>
+    <p>В папке с файлом набери в адресной строке проводника <code>cmd</code>, Enter, затем:</p>
+    <p><code>dev-setup.bat -Safe</code></p>
+    <p>После этого <code>cc</code> станет обычным <code>claude</code>.</p></div></details>
+</div>
 
-<footer>
-  Скрипт открытый, его можно прочитать до запуска:
-  <a href="setup-dev-environment.ps1">setup-dev-environment.ps1</a> ·
-  <a href="setup-dev-environment.bat">setup-dev-environment.bat</a>
-</footer>
+<footer>Скрипт открытый, можно прочитать до запуска: <a href="setup.ps1">setup.ps1</a> · <a href="dev-setup.bat">dev-setup.bat</a></footer>
 
 </div>
 
-<!-- ==================================================================== EN -->
+<!-- =============================================================== EN -->
 <div data-lang="en">
 
 <header>
   <h1>Windows dev environment</h1>
-  <p class="lede">One file installs the editor, Python, Git and Claude&nbsp;Code, sets up the hotkeys, and you can start writing code. Seven steps, about fifteen minutes.</p>
+  <p class="lede">One file installs the editor, Python, Git and Claude&nbsp;Code and sets up the hotkeys. Then you can write code.</p>
 </header>
 
-<section>
-  <h2>Before you start</h2>
-  <ul>
-    <li>Windows 10 (build 1809 or newer) or Windows 11</li>
-    <li>Administrator rights on this machine</li>
-    <li><b>A paid Anthropic plan</b> — Claude Pro or Max. Claude Code will not run without one.</li>
-  </ul>
-</section>
+<div class="plain">
+  <h3>Before you start</h3>
+  <div class="tbl"><table>
+    <tr><td>System</td><td>Windows 10 (build 1809+) or Windows 11</td></tr>
+    <tr><td>Rights</td><td>Administrator on this machine</td></tr>
+    <tr><td>Plan</td><td><b>A paid Claude Pro or Max plan.</b> Claude Code will not run without one</td></tr>
+  </table></div>
+</div>
 
-<section>
-  <div class="step"><div class="num">1</div><h3>Download two files</h3></div>
-  <div class="step-body">
-    <p>Put both into the same folder, for example Downloads. They only work together.</p>
-    <a class="dl" href="setup-dev-environment.bat" download>Download the installer <span class="sub">.bat</span></a>
-    <p><a href="setup-dev-environment.ps1" download>And the second file: setup-dev-environment.ps1</a></p>
-    <p>Your browser may warn that the file "can harm your computer". It says that about every <code>.bat</code> regardless of content — choose Save or Keep anyway.</p>
-    <div class="note">
-      <p><b>Prefer not to download files?</b> Open <b>PowerShell</b> (<kbd>Win</kbd> → type <code>powershell</code> → Enter) and paste this single line — it fetches and runs everything for you:</p>
-      <div class="code">
-        <pre><code id="one-en">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
-        <button class="copy" data-target="one-en">copy</button>
-      </div>
-      <p>Then skip step 2.</p>
-    </div>
-  </div>
-</section>
+<div class="part"><span class="no">PART 1</span><span class="ttl">Install</span></div>
 
-<section>
-  <div class="step"><div class="num">2</div><h3>Run the installer</h3></div>
-  <div class="step-body">
-    <p>Double-click <code>setup-dev-environment.bat</code>. A black window opens and narrates what it is doing at every step.</p>
-    <p>Windows will ask for confirmation a couple of times:</p>
+<div class="step">
+  <h3><span class="n">1</span>Download and run</h3>
+  <div class="b">
+    <a class="dl" href="dev-setup.bat" download>Download the installer <span class="sub">.bat</span></a>
+    <p class="under">One file. Once downloaded, double-click it and it does the rest.</p>
+    <p>Windows will ask twice:</p>
     <ul>
-      <li><b>Blue SmartScreen window</b> — click "More info", then "Run anyway".</li>
-      <li><b>"Do you want to allow this app to make changes?"</b> — Yes. It shows up once per program.</li>
+      <li><b>Blue SmartScreen window</b> — "More info" → "Run anyway". It shows up for every downloaded <code>.bat</code>.</li>
+      <li><b>"Allow this app to make changes?"</b> — Yes, once per program.</li>
     </ul>
-    <p>Nothing else to click. It takes 5–15 minutes, mostly downloading. A long pause on the editor add-ons line is normal — that is about 60&nbsp;MB.</p>
-    <p>At the end the window prints everything it installed, with version numbers.</p>
+    <p>Takes 5–15 minutes and narrates what it is doing. A long pause on the editor add-ons line is a 60&nbsp;MB download, not a freeze.</p>
+    <details>
+      <summary>PowerShell one-liner instead</summary>
+      <div class="body">
+        <p><kbd>Win</kbd> → type <code>powershell</code> → Enter, then paste:</p>
+        <div class="code">
+          <pre><code id="one-en">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\s.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\s.ps1"</code></pre>
+          <button class="copy" data-target="one-en">copy</button>
+        </div>
+      </div>
+    </details>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">3</div><h3>Open a new terminal</h3></div>
-  <div class="step-body">
-    <p>Do not skip this one. The installer registered new commands system-wide, but windows opened <i>before</i> that do not know about them.</p>
-    <p>Close the installer window. Open a fresh one: <kbd>Win</kbd> → type <code>terminal</code> → Enter. Paste this and press Enter:</p>
+<div class="step">
+  <h3><span class="n">2</span>Open a new terminal</h3>
+  <div class="b">
+    <p>Do not skip this. The installer registered new commands, but windows opened <i>before</i> that do not know about them.</p>
+    <p>Close the installer window. <kbd>Win</kbd> → type <code>terminal</code> → Enter. Paste this and press Enter:</p>
     <div class="code">
       <pre><code id="chk-en">code --version
 python --version
@@ -460,179 +407,149 @@ git --version
 claude --version</code></pre>
       <button class="copy" data-target="chk-en">copy</button>
     </div>
-    <p>Each line should answer with a version number. If you get "is not recognized as an internal or external command", see the troubleshooting section.</p>
+    <p>Each line should answer with a version number.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">4</div><h3>Create a project folder and open it</h3></div>
-  <div class="step-body">
-    <p>A project is just a folder with files. Create one wherever you like, for example <code>C:\work\test</code>.</p>
-    <p>Two ways to open it in the editor:</p>
-    <ul>
-      <li><b>With the mouse:</b> <kbd>Win</kbd> → <code>Visual Studio Code</code> → Enter. Then <b>File</b> → <b>Open Folder</b> → pick the folder.</li>
-      <li><b>From the terminal:</b> go into the folder and open it. The dot means "the current folder":</li>
-    </ul>
+<div class="part"><span class="no">PART 2</span><span class="ttl">Start working</span></div>
+
+<div class="step">
+  <h3><span class="n">3</span>Open a project</h3>
+  <div class="b">
+    <p>A project is just a folder with files. Create one wherever you like, say <code>C:\work\test</code>, and open it:</p>
     <div class="code">
       <pre><code id="open-en">cd C:\work\test
 code .</code></pre>
       <button class="copy" data-target="open-en">copy</button>
     </div>
+    <p>The dot means "the current folder". Same thing with the mouse: <kbd>Win</kbd> → <code>Visual Studio Code</code> → <b>File</b> → <b>Open Folder</b>.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">5</div><h3>Open a terminal inside the editor</h3></div>
-  <div class="step-body">
-    <p>Press <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd>. The terminal opens as a tab next to your files, already inside the project folder — no navigating needed.</p>
-    <p>The stock <kbd>Ctrl</kbd>+<kbd>`</kbd> works too: it opens the terminal as a panel at the bottom. Whichever you prefer.</p>
+<div class="step">
+  <h3><span class="n">4</span>A terminal inside the editor</h3>
+  <div class="b">
+    <p><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> — the terminal opens as a tab next to your files, already in the project folder.</p>
+    <p>The stock <kbd>Ctrl</kbd>+<kbd>`</kbd> works too: terminal as a bottom panel.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">6</div><h3>First launch and signing in</h3></div>
-  <div class="step-body">
+<div class="step">
+  <h3><span class="n">5</span>First launch and sign-in</h3>
+  <div class="b">
     <p>In the terminal type two letters and press Enter:</p>
-    <div class="code">
-      <pre><code id="cc-en">cc</code></pre>
-      <button class="copy" data-target="cc-en">copy</button>
-    </div>
-    <p>On the very first launch Claude Code walks you through a short setup:</p>
+    <div class="code"><pre><code id="cc-en">cc</code></pre><button class="copy" data-target="cc-en">copy</button></div>
     <ol>
-      <li>It asks for a colour theme, light or dark. Pick with <kbd>↑</kbd> <kbd>↓</kbd> and press <kbd>Enter</kbd>.</li>
-      <li>It offers sign-in options. Choose the one for a <b>Claude subscription</b> (not the API key option).</li>
+      <li>It asks for a light or dark theme — pick with the arrow keys and press <kbd>Enter</kbd>.</li>
+      <li>It offers sign-in options — choose the <b>Claude subscription</b> one, not the API key.</li>
       <li>A browser opens. Sign in to the Anthropic account that holds your paid plan.</li>
-      <li>The browser asks you to authorise — click the confirm button.</li>
-      <li>Go back to the terminal window. It picks the session up on its own and will not ask again.</li>
+      <li>Authorise, then go back to the terminal — it will not ask again.</li>
     </ol>
     <figure>
-      <svg viewBox="0 0 700 128" role="img" aria-label="Sign-in flow: terminal, browser, back to terminal">
-        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
-          <path d="M0,0 L7,3 L0,6 z" fill="currentColor"/></marker></defs>
-        <g fill="none" stroke="currentColor" stroke-width="1.5" opacity=".45">
-          <rect x="6" y="26" width="190" height="76" rx="9"/>
-          <rect x="255" y="26" width="190" height="76" rx="9"/>
-          <rect x="504" y="26" width="190" height="76" rx="9"/>
-          <line x1="200" y1="64" x2="246" y2="64" marker-end="url(#ar2)"/>
-          <line x1="449" y1="64" x2="495" y2="64" marker-end="url(#ar2)"/>
+      <svg viewBox="0 0 700 104" role="img" aria-label="Terminal, browser, back to terminal">
+        <defs><marker id="ar2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="currentColor"/></marker></defs>
+        <g fill="none" stroke="currentColor" stroke-width="1.4" opacity=".4">
+          <rect x="4" y="16" width="192" height="70" rx="8"/><rect x="254" y="16" width="192" height="70" rx="8"/><rect x="504" y="16" width="192" height="70" rx="8"/>
+          <line x1="200" y1="51" x2="246" y2="51" marker-end="url(#ar2)"/><line x1="450" y1="51" x2="496" y2="51" marker-end="url(#ar2)"/>
         </g>
         <g font-family="-apple-system,Segoe UI,sans-serif" fill="currentColor" text-anchor="middle">
-          <text x="101" y="58" font-size="14" font-weight="600">Terminal</text>
-          <text x="101" y="80" font-size="12.5" opacity=".65">you type cc</text>
-          <text x="350" y="58" font-size="14" font-weight="600">Browser</text>
-          <text x="350" y="80" font-size="12.5" opacity=".65">sign in and authorise</text>
-          <text x="599" y="58" font-size="14" font-weight="600">Terminal</text>
-          <text x="599" y="80" font-size="12.5" opacity=".65">done, start working</text>
+          <text x="100" y="46" font-size="13.5" font-weight="600">Terminal</text><text x="100" y="66" font-size="12" opacity=".62">you type cc</text>
+          <text x="350" y="46" font-size="13.5" font-weight="600">Browser</text><text x="350" y="66" font-size="12" opacity=".62">sign in, authorise</text>
+          <text x="600" y="46" font-size="13.5" font-weight="600">Terminal</text><text x="600" y="66" font-size="12" opacity=".62">done</text>
         </g>
       </svg>
     </figure>
-    <p>If the browser does not open by itself, the terminal prints a link — copy it and open it manually.</p>
+    <p>If the browser does not open by itself, the terminal prints a link — open it manually.</p>
   </div>
-</section>
+</div>
 
-<section>
-  <div class="step"><div class="num">7</div><h3>Get to work</h3></div>
-  <div class="step-body">
-    <p>From here just describe what you want in plain words:</p>
+<div class="step">
+  <h3><span class="n">6</span>Get to work</h3>
+  <div class="b">
+    <p>From here just say what you want in plain words:</p>
     <div class="code">
       <pre><code id="ex-en">&gt; write a python script that downloads an image from a url
 &gt; add error handling and write tests for it
 &gt; run the tests and fix whatever fails</code></pre>
       <button class="copy" data-target="ex-en">copy</button>
     </div>
-    <p>To quit: <kbd>Ctrl</kbd>+<kbd>C</kbd> twice, or the <code>/exit</code> command.</p>
+    <p>To quit: <code>/exit</code> or <kbd>Ctrl</kbd>+<kbd>C</kbd> twice.</p>
     <div class="note">
-      <p><b>About the cc command.</b> It is Claude Code with <code>--dangerously-skip-permissions</code>: it edits files and runs commands <b>without asking</b>. That is faster, but it can break anything in the current folder.</p>
-      <p>In folders that matter, run plain <code>claude</code> instead — same thing, but it asks permission for every action.</p>
+      <p><b>About cc.</b> It is Claude Code with <code>--dangerously-skip-permissions</code>: it edits files and runs commands without asking. Fast, but it can break anything in the current folder.</p>
+      <p>In folders that matter, run <code>claude</code> instead — same thing, but it asks before every action.</p>
     </div>
   </div>
-</section>
+</div>
 
-<section>
-  <h2>Screenshots to the clipboard</h2>
-  <p>Nothing to install — Windows already does this. A screenshot on the clipboard can be pasted straight into the Claude Code window, which beats describing an error or a mockup in words.</p>
+<div class="part"><span class="no">PART 3</span><span class="ttl">Reference</span></div>
+
+<div class="plain">
+  <h3>Screenshots to the clipboard</h3>
+  <p>Nothing to install, Windows already does this. A screenshot pastes straight into the Claude Code window — faster than describing an error in words.</p>
   <div class="tbl"><table>
-    <tr><th>Keys</th><th>What lands on the clipboard</th></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td><b>A region you select.</b> The screen dims, drag a rectangle — the shot is on the clipboard</td></tr>
-    <tr><td><kbd>PrtScn</kbd></td><td><b>The whole screen</b> (see the caveat below)</td></tr>
+    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td><b>A region.</b> Drag a rectangle — the shot is on the clipboard</td></tr>
+    <tr><td><kbd>PrtScn</kbd></td><td>The whole screen (see the caveat)</td></tr>
     <tr><td><kbd>Alt</kbd>+<kbd>PrtScn</kbd></td><td>The active window only</td></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>PrtScn</kbd></td><td>Whole screen, saved as a file in Pictures\Screenshots</td></tr>
+    <tr><td><kbd>Alt</kbd>+<kbd>V</kbd></td><td>Paste the shot into Claude Code</td></tr>
   </table></div>
   <div class="note">
-    <p><b>If <kbd>PrtScn</kbd> opens the Snipping Tool</b> instead of copying the whole screen — that is the Windows 11 default. Three clicks to change:</p>
-    <p>Settings → Accessibility → Keyboard → turn off "Use the Print screen key to open Snipping Tool".</p>
-    <p>On laptops <kbd>PrtScn</kbd> often needs <kbd>Fn</kbd> held down with it.</p>
+    <p><b>If <kbd>PrtScn</kbd> opens the Snipping Tool</b> instead of copying the whole screen — that is the Windows 11 default. Settings → Accessibility → Keyboard → turn off "Use the Print screen key to open Snipping Tool".</p>
+    <p>On laptops <kbd>PrtScn</kbd> often needs <kbd>Fn</kbd> held with it.</p>
   </div>
-  <p>To paste a screenshot into Claude Code press <kbd>Alt</kbd>+<kbd>V</kbd>. Plain <kbd>Ctrl</kbd>+<kbd>V</kbd> usually will not work for images in a Windows terminal — the terminal itself claims it.</p>
-</section>
+</div>
 
-<section>
-  <h2>What got installed</h2>
+<div class="plain">
+  <h3>What got installed</h3>
   <div class="tbl"><table>
-    <tr><th>Program</th><th>What it is for</th></tr>
     <tr><td><b>VS Code</b></td><td>The editor you write code in</td></tr>
-    <tr><td><b>Git</b></td><td>Change history, so you can always roll back</td></tr>
+    <tr><td><b>Git</b></td><td>Change history, so you can roll back</td></tr>
     <tr><td><b>Python 3.12</b></td><td>Programming language</td></tr>
     <tr><td><b>Node.js</b></td><td>Required by most web tooling</td></tr>
-    <tr><td><b>Claude Code</b></td><td>AI that writes code right in the terminal</td></tr>
+    <tr><td><b>Claude Code</b></td><td>AI that writes code in the terminal</td></tr>
   </table></div>
-  <p style="color:var(--ink-2);font-size:15px">Plus editor add-ons: Python, Pylance, Claude&nbsp;Code.</p>
-</section>
+  <p class="under">Plus editor add-ons: Python, Pylance, Claude&nbsp;Code.</p>
+</div>
 
-<section>
-  <h2>Cheat sheet</h2>
+<div class="plain">
+  <h3>Cheat sheet</h3>
   <div class="tbl"><table>
-    <tr><th>Command</th><th>What it does</th></tr>
     <tr><td><code>cc</code></td><td>Claude Code without confirmations</td></tr>
     <tr><td><code>claude</code></td><td>Claude Code, asks permission</td></tr>
     <tr><td><code>code .</code></td><td>Open the current folder in the editor</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd></td><td>Terminal as an editor tab</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>`</kbd></td><td>Terminal as a bottom panel</td></tr>
     <tr><td><kbd>Ctrl</kbd>+<kbd>P</kbd></td><td>Jump to a file</td></tr>
-    <tr><td><kbd>Ctrl</kbd>+<kbd>S</kbd></td><td>Save</td></tr>
-    <tr><td><kbd>Win</kbd>+<kbd>Shift</kbd>+<kbd>S</kbd></td><td>Snip a region to the clipboard</td></tr>
-    <tr><td><kbd>Alt</kbd>+<kbd>V</kbd></td><td>Paste an image into Claude Code</td></tr>
   </table></div>
-</section>
+</div>
 
-<section>
-  <h2>Troubleshooting</h2>
+<div class="plain">
+  <h3>Troubleshooting</h3>
 
   <details><summary><code>cc</code> is not recognised</summary><div class="body">
-    <p>Almost always the same cause: an old terminal window. Close every terminal and open a new one. Still nothing — reboot, and the system will definitely pick the new commands up.</p></div></details>
+    <p>Almost always an old terminal window. Close every terminal and open a new one. Still nothing — reboot.</p></div></details>
 
-  <details><summary>It said <code>winget not found</code> at the very start</summary><div class="body">
-    <p>Microsoft's built-in package installer is missing — happens on older Windows 10 builds. Install the free <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> from the Microsoft Store and run the file again.</p></div></details>
+  <details><summary>It said <code>winget not found</code></summary><div class="body">
+    <p>Microsoft's built-in installer is missing, which happens on older Windows 10 builds. Install the free <a href="https://apps.microsoft.com/detail/9nblggh4nns1" target="_blank" rel="noopener">App Installer</a> from the Microsoft Store and run the file again.</p></div></details>
 
-  <details><summary>SmartScreen blocks the file</summary><div class="body">
-    <p>"More info" → "Run anyway". Windows shows this for every <code>.bat</code> downloaded from the internet, whatever is inside it.</p></div></details>
+  <details><summary>SmartScreen blocks it</summary><div class="body">
+    <p>"More info" → "Run anyway". Windows does this for every downloaded <code>.bat</code>.</p></div></details>
 
-  <details><summary>The .bat opened in Notepad instead of running</summary><div class="body">
-    <p>The <code>.bat</code> file association is broken. Right-click the file → "Open with" → "Choose another app" → <b>Windows Command Processor</b>.</p></div></details>
-
-  <details><summary>It complains setup-dev-environment.ps1 is missing</summary><div class="body">
-    <p>Only one of the two files downloaded, or they ended up in different folders. Both must sit in the same folder.</p></div></details>
+  <details><summary>The file opened in Notepad</summary><div class="body">
+    <p>The <code>.bat</code> association is broken. Right-click → "Open with" → "Choose another app" → <b>Windows Command Processor</b>.</p></div></details>
 
   <details><summary><kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>T</kbd> does nothing</summary><div class="body">
-    <p>VS Code reads hotkeys at startup. If it was open during the install, close it completely and reopen.</p></div></details>
+    <p>VS Code reads hotkeys at startup. Close it completely and reopen.</p></div></details>
 
-  <details><summary>It froze on the add-ons line</summary><div class="body">
-    <p>Not frozen — downloading. The largest add-on is around 50&nbsp;MB, so 1–3 minutes is normal. If it sits there for more than five, press <kbd>Ctrl</kbd>+<kbd>C</kbd>: everything else is already installed, and add-ons can be installed later from the Extensions panel in VS Code.</p></div></details>
+  <details><summary>Claude Code asks for payment</summary><div class="body">
+    <p>An active paid plan is required — Claude Pro or Max. It does not work on a free account.</p></div></details>
 
-  <details><summary>Claude Code refuses to start or asks for payment</summary><div class="body">
-    <p>An active paid Anthropic plan is required — Claude Pro or Max. Claude Code does not work on a free account.</p></div></details>
+  <details><summary>I want <code>cc</code> to ask permission</summary><div class="body">
+    <p>In the folder with the file type <code>cmd</code> in the Explorer address bar, Enter, then run:</p>
+    <p><code>dev-setup.bat -Safe</code></p>
+    <p>After that <code>cc</code> becomes plain <code>claude</code>.</p></div></details>
+</div>
 
-  <details><summary>I want <code>cc</code> to ask for permission</summary><div class="body">
-    <p>Open the folder with the files, type <code>cmd</code> in the Explorer address bar and press Enter, then run:</p>
-    <p><code>setup-dev-environment.bat -Safe</code></p>
-    <p>After that <code>cc</code> becomes plain <code>claude</code>, asking before every action.</p></div></details>
-</section>
-
-<footer>
-  The script is open — read it before running:
-  <a href="setup-dev-environment.ps1">setup-dev-environment.ps1</a> ·
-  <a href="setup-dev-environment.bat">setup-dev-environment.bat</a>
-</footer>
+<footer>The script is open, read it before running: <a href="setup.ps1">setup.ps1</a> · <a href="dev-setup.bat">dev-setup.bat</a></footer>
 
 </div>
 
@@ -640,41 +557,28 @@ code .</code></pre>
 
 <script>
 (function(){
-  var TITLES = {
-    ru: {doc:'Рабочее окружение для Windows', brand:'Установка окружения'},
-    en: {doc:'Windows dev environment',       brand:'Windows dev setup'}
-  };
-  var btn = {ru:document.getElementById('btn-ru'), en:document.getElementById('btn-en')};
-
-  function apply(lang){
-    document.querySelectorAll('[data-lang]').forEach(function(el){
-      el.classList.toggle('on', el.getAttribute('data-lang') === lang);
-    });
-    btn.ru.setAttribute('aria-pressed', lang === 'ru');
-    btn.en.setAttribute('aria-pressed', lang === 'en');
-    document.documentElement.lang = lang;
-    document.title = TITLES[lang].doc;
-    document.getElementById('brand').textContent = TITLES[lang].brand;
-    try { localStorage.setItem('lang', lang); } catch(e){}
+  var T = {ru:{doc:'Рабочее окружение для Windows', brand:'Установка окружения'},
+           en:{doc:'Windows dev environment',       brand:'Windows dev setup'}};
+  var b = {ru:document.getElementById('btn-ru'), en:document.getElementById('btn-en')};
+  function apply(l){
+    document.querySelectorAll('[data-lang]').forEach(function(e){ e.classList.toggle('on', e.getAttribute('data-lang')===l); });
+    b.ru.setAttribute('aria-pressed', l==='ru'); b.en.setAttribute('aria-pressed', l==='en');
+    document.documentElement.lang = l; document.title = T[l].doc;
+    document.getElementById('brand').textContent = T[l].brand;
+    try{ localStorage.setItem('lang', l); }catch(e){}
   }
-
-  var saved = null;
-  try { saved = localStorage.getItem('lang'); } catch(e){}
-  var initial = saved || ((navigator.language || 'en').toLowerCase().indexOf('ru') === 0 ? 'ru' : 'en');
-  apply(initial);
-
-  btn.ru.addEventListener('click', function(){ apply('ru'); });
-  btn.en.addEventListener('click', function(){ apply('en'); });
-
-  document.querySelectorAll('.copy').forEach(function(b){
-    b.addEventListener('click', function(){
-      var el = document.getElementById(b.dataset.target);
-      if(!el) return;
+  var saved=null; try{ saved=localStorage.getItem('lang'); }catch(e){}
+  apply(saved || ((navigator.language||'en').toLowerCase().indexOf('ru')===0 ? 'ru' : 'en'));
+  b.ru.addEventListener('click',function(){apply('ru');});
+  b.en.addEventListener('click',function(){apply('en');});
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.dataset.target); if(!el) return;
       navigator.clipboard.writeText(el.innerText).then(function(){
-        var old = b.textContent;
-        b.textContent = document.documentElement.lang === 'ru' ? 'скопировано' : 'copied';
-        b.classList.add('done');
-        setTimeout(function(){ b.textContent = old; b.classList.remove('done'); }, 1600);
+        var o=btn.textContent;
+        btn.textContent = document.documentElement.lang==='ru' ? 'скопировано' : 'copied';
+        btn.classList.add('done');
+        setTimeout(function(){ btn.textContent=o; btn.classList.remove('done'); },1500);
       });
     });
   });
