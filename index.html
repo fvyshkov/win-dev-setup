@@ -189,7 +189,7 @@
     <div class="note">
       <p><b>Не хочешь качать файлы?</b> Открой <b>PowerShell</b> (<kbd>Win</kbd> → набери <code>powershell</code> → Enter) и вставь одну строку — она скачает и запустит всё сама:</p>
       <div class="code">
-        <pre><code id="one-ru">irm __SITE_URL__/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
+        <pre><code id="one-ru">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
         <button class="copy" data-target="one-ru">копировать</button>
       </div>
       <p>Тогда шаг 2 можно пропустить.</p>
@@ -406,7 +406,7 @@ code .</code></pre>
     <div class="note">
       <p><b>Prefer not to download files?</b> Open <b>PowerShell</b> (<kbd>Win</kbd> → type <code>powershell</code> → Enter) and paste this single line — it fetches and runs everything for you:</p>
       <div class="code">
-        <pre><code id="one-en">irm __SITE_URL__/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
+        <pre><code id="one-en">irm https://win-dev-setup.onrender.com/setup.ps1 -OutFile "$env:TEMP\setup.ps1"; powershell -ExecutionPolicy Bypass -File "$env:TEMP\setup.ps1"</code></pre>
         <button class="copy" data-target="one-en">copy</button>
       </div>
       <p>Then skip step 2.</p>
