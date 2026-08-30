@@ -82,6 +82,27 @@ function Install-Pkg([string]$id, [string]$label, [string]$why, [scriptblock]$pr
     return $false
 }
 
+# Tell Windows the environment changed. Without this broadcast, Explorer keeps
+# a stale copy of the environment block, so anything launched from the Start
+# menu (VS Code included) still gets the OLD PATH until the next logon.
+function Publish-EnvChange {
+    try {
+        if (-not ('Win32.NativeMethods' -as [type])) {
+            Add-Type -Namespace Win32 -Name NativeMethods -MemberDefinition @'
+[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
+public static extern IntPtr SendMessageTimeout(
+    IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam,
+    uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);
+'@
+        }
+        $res = [UIntPtr]::Zero
+        # HWND_BROADCAST = 0xffff, WM_SETTINGCHANGE = 0x1A, SMTO_ABORTIFHUNG = 2
+        [void][Win32.NativeMethods]::SendMessageTimeout(
+            [IntPtr]0xffff, 0x1A, [UIntPtr]::Zero, 'Environment', 2, 5000, [ref]$res)
+        return $true
+    } catch { return $false }
+}
+
 # Append a folder to the user PATH. The value is read raw, without expanding
 # variables, so that %USERPROFILE% is not baked into the text.
 function Add-UserPath([string]$dir) {
@@ -97,6 +118,8 @@ function Add-UserPath([string]$dir) {
         Ok 'the command now works from any folder'
     }
     if (($env:Path -split ';') -notcontains $dir) { $env:Path = $env:Path + ';' + $dir }
+    if (Publish-EnvChange) { Ok 'told Windows the PATH changed' }
+    else { Skip 'could not broadcast the PATH change - a reboot will apply it' }
 }
 
 # ------------------------------------------------------------ splash ---
@@ -312,6 +335,8 @@ Write-Host ''
 Write-Host '     1. Close this window.'
 Write-Host '     2. Open a NEW terminal window - the new commands are not'
 Write-Host '        visible in old ones. Start menu, type:  terminal'
+Write-Host '        If cc is still not found there, reboot once: some apps'
+Write-Host '        cache the old PATH until the next sign-in.'
 Write-Host '     3. Open your project folder with:  code .'
 Write-Host '     4. In the editor press Ctrl+Alt+T to get a terminal.'
 Write-Host '     5. Type:  cc'
